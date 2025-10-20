@@ -2,14 +2,23 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, MapPin, Briefcase, DollarSign } from "lucide-react";
 import { auth } from "@/lib/auth";
+import { db } from "@/db";
+import { jobs } from "@/db/schema";
+import { eq } from "drizzle-orm";
 
 async function getJob(id: string) {
-  const response = await fetch(`${process.env.NEXTAUTH_URL}/api/jobs/${id}`, {
-    cache: "no-store",
-  });
-  if (!response.ok) return null;
-  const data = await response.json();
-  return data.job;
+  try {
+    const job = await db.query.jobs.findFirst({
+      where: eq(jobs.id, id),
+      with: {
+        company: true,
+      },
+    });
+    return job || null;
+  } catch (error) {
+    console.error("Error fetching job:", error);
+    return null;
+  }
 }
 
 export default async function JobDetailPage({

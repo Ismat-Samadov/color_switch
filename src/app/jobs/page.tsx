@@ -1,12 +1,23 @@
 import Link from "next/link";
 import { Briefcase, MapPin } from "lucide-react";
+import { db } from "@/db";
+import { jobs } from "@/db/schema";
+import { eq, desc } from "drizzle-orm";
 
 async function getJobs() {
-  const response = await fetch(`${process.env.NEXTAUTH_URL}/api/jobs`, {
-    cache: "no-store",
-  });
-  const data = await response.json();
-  return data.jobs || [];
+  try {
+    const jobsList = await db.query.jobs.findMany({
+      where: eq(jobs.isActive, true),
+      with: {
+        company: true,
+      },
+      orderBy: [desc(jobs.createdAt)],
+    });
+    return jobsList;
+  } catch (error) {
+    console.error("Error fetching jobs:", error);
+    return [];
+  }
 }
 
 export default async function JobsPage() {

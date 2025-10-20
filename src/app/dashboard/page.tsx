@@ -2,6 +2,9 @@ import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import Link from "next/link";
 import { Briefcase, Plus } from "lucide-react";
+import { db } from "@/db";
+import { jobs } from "@/db/schema";
+import { eq, desc } from "drizzle-orm";
 
 export default async function DashboardPage() {
   const session = await auth();
@@ -14,12 +17,14 @@ export default async function DashboardPage() {
     redirect("/");
   }
 
-  // Fetch user's jobs
-  const response = await fetch(
-    `${process.env.NEXTAUTH_URL}/api/jobs?userId=${session.user.id}`,
-    { cache: "no-store" }
-  );
-  const { jobs } = await response.json();
+  // Fetch user's jobs directly from database
+  const userJobs = await db.query.jobs.findMany({
+    where: eq(jobs.userId, session.user.id),
+    with: {
+      company: true,
+    },
+    orderBy: [desc(jobs.createdAt)],
+  });
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -45,7 +50,7 @@ export default async function DashboardPage() {
             <h2 className="text-xl font-semibold">Your Job Postings</h2>
           </div>
           <div className="divide-y divide-gray-200 dark:divide-gray-700">
-            {jobs.length === 0 ? (
+            {userJobs.length === 0 ? (
               <div className="px-6 py-12 text-center">
                 <Briefcase className="w-12 h-12 mx-auto text-gray-400 mb-4" />
                 <p className="text-gray-600 dark:text-gray-400">
@@ -53,7 +58,7 @@ export default async function DashboardPage() {
                 </p>
               </div>
             ) : (
-              jobs.map((job: any) => (
+              userJobs.map((job: any) => (
                 <div key={job.id} className="px-6 py-4">
                   <div className="flex justify-between items-start">
                     <div>
