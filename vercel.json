@@ -1,0 +1,16 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "framework": "nextjs",
+  "regions": ["iad1"],
+  "functions": {
+    "app/**/*.{ts,tsx}": {
+      "memory": 1024,
+      "maxDuration": 10
+    },
+    "api/**/*.{ts,tsx}": {
+      "memory": 1024,
+      "maxDuration": 10
+    }
+  }
+}
