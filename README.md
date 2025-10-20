@@ -1,39 +1,79 @@
 # GoToJob - Job Application & Posting Platform
 
-A modern full-stack job posting and application platform built with Next.js 15, featuring secure file uploads to Cloudflare R2, PostgreSQL database with Neon, and NextAuth authentication.
+<div align="center">
 
-## Features
+**A modern full-stack job posting and application platform built with Next.js 15**
 
-- **For Job Seekers (Applicants)**
-  - Browse and search job listings
-  - View detailed job descriptions
-  - Apply to jobs with CV upload
-  - Track application status
+[Live Demo](https://gotojob-zeta.vercel.app) • [Report Bug](https://github.com/Ismat-Samadov/gotojob/issues) • [Request Feature](https://github.com/Ismat-Samadov/gotojob/issues)
 
-- **For Employers**
-  - Create and manage company profiles
-  - Post job openings
-  - Manage job listings
-  - View applications
+[![Next.js](https://img.shields.io/badge/Next.js-15-black)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-3-38bdf8)](https://tailwindcss.com/)
+[![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black)](https://vercel.com)
 
-- **Authentication & Security**
-  - Email/password authentication with NextAuth.js
-  - Role-based access control (Applicant/Employer)
-  - Secure file uploads to Cloudflare R2
-  - Protected API routes
+</div>
 
-## Tech Stack
+---
 
-- **Framework**: Next.js 15 (App Router)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Database**: Neon PostgreSQL
-- **ORM**: Drizzle ORM
-- **Authentication**: NextAuth.js v5
-- **File Storage**: Cloudflare R2
-- **Hosting**: Vercel (Hobby Plan)
+## 📸 Screenshots
 
-## Getting Started
+### Landing Page
+![Landing Page](./screenshots/landing.png)
+
+### Sign Up
+![Sign Up](./screenshots/sign%20up.png)
+
+### Browse Jobs
+![Browse Jobs](./screenshots/browse%20jobs.png)
+
+### For Applicants - Track Applications
+![My Applications](./screenshots/applied%20jobs%20for%20applicants.png)
+
+### For Employers - Manage Job Postings
+![Posted Jobs](./screenshots/posted%20jobs%20for%20hr.png)
+
+---
+
+## ✨ Features
+
+### For Job Seekers
+- 🔍 Browse and search job listings
+- 📄 Apply with CV upload (PDF, DOC, DOCX)
+- 📝 Optional cover letter submission
+- 📊 Track application status in real-time
+- 🎯 View detailed job descriptions and requirements
+
+### For Employers
+- 🏢 Create and manage company profiles
+- 📝 Post job openings with detailed descriptions
+- 👥 View and manage applications
+- 🎨 Track all posted jobs in one dashboard
+- ✅ Review applicant CVs and information
+
+### Security & Authentication
+- 🔐 Secure email/password authentication
+- 👤 Role-based access control (Applicant/Employer)
+- 🔒 Protected API routes
+- 📁 Secure file storage with Cloudflare R2
+
+---
+
+## 🛠 Tech Stack
+
+| Category | Technology |
+|----------|-----------|
+| **Framework** | Next.js 15 (App Router) |
+| **Language** | TypeScript |
+| **Styling** | Tailwind CSS |
+| **Database** | PostgreSQL (Neon) |
+| **ORM** | Drizzle ORM |
+| **Authentication** | NextAuth.js v5 |
+| **File Storage** | Cloudflare R2 |
+| **Hosting** | Vercel |
+
+---
+
+## 🚀 Quick Start
 
 ### Prerequisites
 
@@ -44,24 +84,20 @@ A modern full-stack job posting and application platform built with Next.js 15, 
 
 ### Installation
 
-1. Clone the repository:
+1. **Clone the repository**
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/Ismat-Samadov/gotojob.git
 cd gotojob
 ```
 
-2. Install dependencies:
+2. **Install dependencies**
 ```bash
 npm install
 ```
 
-3. Set up environment variables:
-```bash
-cp .env.example .env
-```
+3. **Set up environment variables**
 
-Edit `.env` with your credentials:
-
+Create a `.env` file:
 ```env
 # Database
 DATABASE_URL=postgresql://username:password@ep-xxx.region.aws.neon.tech/neondb?sslmode=require
@@ -70,171 +106,185 @@ DATABASE_URL=postgresql://username:password@ep-xxx.region.aws.neon.tech/neondb?s
 R2_ACCOUNT_ID=your_account_id
 R2_ACCESS_KEY_ID=your_access_key_id
 R2_SECRET_ACCESS_KEY=your_secret_access_key
-R2_BUCKET_NAME=gotojob-cvs
-R2_PUBLIC_URL=https://your-bucket.r2.cloudflarestorage.com
+R2_BUCKET_NAME=gotojob
+R2_PUBLIC_URL=https://your-bucket.r2.dev
 
 # NextAuth
 NEXTAUTH_URL=http://localhost:3000
-NEXTAUTH_SECRET=your_nextauth_secret
+NEXTAUTH_SECRET=generate_with_openssl_rand_base64_32
 ```
 
-4. Generate database schema:
-```bash
-npm run db:generate
-```
-
-5. Push schema to database:
+4. **Initialize database**
 ```bash
 npm run db:push
 ```
 
-6. Run the development server:
+5. **Run development server**
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to see your application.
+Open [http://localhost:3000](http://localhost:3000) 🎉
 
-## Environment Setup Guide
+---
 
-### 1. Setting up Neon Database
-
-1. Go to [Neon Console](https://console.neon.tech)
-2. Create a new project
-3. Copy the connection string
-4. Add it to your `.env` as `DATABASE_URL`
-
-### 2. Setting up Cloudflare R2
-
-1. Go to [Cloudflare Dashboard](https://dash.cloudflare.com)
-2. Navigate to R2 Object Storage
-3. Create a new bucket (e.g., `gotojob-cvs`)
-4. Go to "Manage R2 API Tokens"
-5. Create a new API token with Read & Write permissions
-6. Copy the credentials to your `.env`:
-   - Account ID
-   - Access Key ID
-   - Secret Access Key
-7. Configure public access for the bucket if needed and set `R2_PUBLIC_URL`
-
-### 3. Setting up NextAuth Secret
-
-Generate a secure secret:
-```bash
-openssl rand -base64 32
-```
-
-Add it to your `.env` as `NEXTAUTH_SECRET`
-
-## Deployment to Vercel
-
-1. Push your code to GitHub
-
-2. Go to [Vercel Dashboard](https://vercel.com/dashboard)
-
-3. Click "New Project" and import your repository
-
-4. Configure environment variables in Vercel:
-   - Go to Project Settings → Environment Variables
-   - Add all variables from your `.env` file
-   - Update `NEXTAUTH_URL` to your production domain
-
-5. Deploy:
-```bash
-git push origin main
-```
-
-Vercel will automatically deploy your application.
-
-### Important Vercel Settings
-
-- **Framework Preset**: Next.js
-- **Build Command**: `npm run build`
-- **Output Directory**: `.next`
-- **Install Command**: `npm install`
-- **Node Version**: 18.x or higher
-
-## Database Management
-
-### Generate migration files:
-```bash
-npm run db:generate
-```
-
-### Apply migrations:
-```bash
-npm run db:migrate
-```
-
-### Push schema changes directly:
-```bash
-npm run db:push
-```
-
-### Open Drizzle Studio (Database GUI):
-```bash
-npm run db:studio
-```
-
-## Project Structure
+## 📁 Project Structure
 
 ```
 gotojob/
 ├── src/
-│   ├── app/                    # Next.js app router pages
+│   ├── app/                    # Next.js App Router
 │   │   ├── api/               # API routes
-│   │   ├── auth/              # Authentication pages
-│   │   ├── dashboard/         # Employer dashboard
-│   │   └── jobs/              # Job listing & details
-│   ├── components/            # React components
-│   ├── db/                    # Database schema & connection
-│   └── lib/                   # Utility functions
-├── drizzle/                   # Database migrations
-├── public/                    # Static files
-└── ...config files
+│   │   │   ├── auth/         # Authentication endpoints
+│   │   │   ├── applications/ # Application management
+│   │   │   ├── companies/    # Company CRUD
+│   │   │   └── jobs/         # Job management
+│   │   ├── auth/             # Auth pages (sign in/up)
+│   │   ├── dashboard/        # User dashboards
+│   │   │   ├── applications/ # Applicant dashboard
+│   │   │   └── jobs/        # Employer dashboard
+│   │   └── jobs/            # Public job listings
+│   ├── components/          # React components
+│   ├── db/                 # Database config & schema
+│   └── lib/                # Utilities & helpers
+├── public/                 # Static assets
+└── screenshots/           # App screenshots
 ```
 
-## API Routes
+---
 
-- `POST /api/auth/signup` - User registration
-- `POST /api/auth/[...nextauth]` - NextAuth handlers
-- `GET/POST /api/companies` - Company management
-- `GET/POST /api/jobs` - Job listings
-- `GET/PATCH/DELETE /api/jobs/[id]` - Individual job operations
-- `GET/POST /api/applications` - Job applications
+## 🔧 Configuration
 
-## Features to Add (Future)
+### Database Schema
 
-- Search and filter functionality for jobs
-- Email notifications for applications
-- Application status management for employers
-- User profile pages
-- Company logo uploads
-- Advanced job search filters
-- Application analytics
-- Resume parsing
+The application uses PostgreSQL with the following tables:
+- **users** - User accounts with role-based access
+- **companies** - Company profiles for employers
+- **jobs** - Job postings
+- **applications** - Job applications with CV links
 
-## Troubleshooting
+### API Endpoints
 
-### Database Connection Issues
-- Verify your `DATABASE_URL` is correct
-- Check if your IP is allowed in Neon's connection settings
-- Ensure SSL mode is set to `require`
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/auth/signup` | POST | User registration |
+| `/api/auth/[...nextauth]` | GET/POST | NextAuth handlers |
+| `/api/companies` | GET/POST | Company management |
+| `/api/jobs` | GET/POST | Job listings |
+| `/api/jobs/[id]` | GET/PATCH/DELETE | Individual job operations |
+| `/api/applications` | GET/POST | Application submissions |
 
-### R2 Upload Failures
-- Verify all R2 credentials are correct
-- Check bucket permissions
-- Ensure the bucket name matches your configuration
+---
 
-### Authentication Issues
-- Make sure `NEXTAUTH_SECRET` is set
-- Verify `NEXTAUTH_URL` matches your domain
-- Clear browser cookies and try again
+## 🎨 Key Features Explained
 
-## Contributing
+### CV Upload with Cloudflare R2
+Files are securely uploaded to Cloudflare R2 (S3-compatible) with unique filenames:
+```typescript
+cvs/timestamp-randomstring.pdf
+```
+
+### Role-Based Access
+- **Applicants**: Browse jobs, submit applications, track status
+- **Employers**: Post jobs, view applications, manage listings
+
+### Real-time Application Tracking
+Applicants can see application status:
+- 🟡 Pending
+- 🔵 Reviewing
+- 🟢 Accepted
+- 🔴 Rejected
+
+---
+
+## 🚢 Deployment
+
+### Deploy to Vercel
+
+1. Push to GitHub:
+```bash
+git push origin main
+```
+
+2. Import on [Vercel](https://vercel.com)
+
+3. Add environment variables in Vercel dashboard
+
+4. Deploy! ✨
+
+Detailed guide: See [DEPLOYMENT.md](./DEPLOYMENT.md)
+
+---
+
+## 📊 Database Management
+
+```bash
+# Generate migrations
+npm run db:generate
+
+# Apply migrations
+npm run db:migrate
+
+# Push schema directly
+npm run db:push
+
+# Open Drizzle Studio (Database GUI)
+npm run db:studio
+```
+
+---
+
+## 🧪 Development Scripts
+
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run start        # Start production server
+npm run lint         # Run ESLint
+```
+
+---
+
+## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## License
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-MIT
+---
+
+## 📝 License
+
+This project is licensed under the MIT License.
+
+---
+
+## 👨‍💻 Author
+
+**Ismat Samadov**
+
+- GitHub: [@Ismat-Samadov](https://github.com/Ismat-Samadov)
+
+---
+
+## 🙏 Acknowledgments
+
+- Next.js team for the amazing framework
+- Vercel for hosting
+- Neon for database
+- Cloudflare for R2 storage
+- All contributors and users
+
+---
+
+<div align="center">
+
+**⭐ Star this repo if you find it helpful!**
+
+[Report Bug](https://github.com/Ismat-Samadov/gotojob/issues) • [Request Feature](https://github.com/Ismat-Samadov/gotojob/issues)
+
+</div>
