@@ -23,12 +23,19 @@ export default async function Home() {
                   >
                     Browse Jobs
                   </Link>
-                  {session.user.role === "employer" && (
+                  {session.user.role === "employer" ? (
                     <Link
                       href="/dashboard"
                       className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-8 py-3 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 font-medium"
                     >
-                      Employer Dashboard
+                      My Jobs
+                    </Link>
+                  ) : (
+                    <Link
+                      href="/dashboard/applications"
+                      className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-8 py-3 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 font-medium"
+                    >
+                      My Applications
                     </Link>
                   )}
                 </>

@@ -24,16 +24,23 @@ export default async function Header() {
 
             {session?.user ? (
               <>
-                {session.user.role === "employer" && (
+                {session.user.role === "employer" ? (
                   <Link
                     href="/dashboard"
                     className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
                   >
-                    Dashboard
+                    My Jobs
+                  </Link>
+                ) : (
+                  <Link
+                    href="/dashboard/applications"
+                    className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                  >
+                    My Applications
                   </Link>
                 )}
                 <span className="text-sm text-gray-600 dark:text-gray-400">
-                  {session.user.email}
+                  {session.user.name}
                 </span>
                 <form
                   action={async () => {
