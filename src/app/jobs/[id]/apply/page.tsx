@@ -49,8 +49,8 @@ export default function ApplyJobPage() {
       } else {
         setSuccess(true);
         setTimeout(() => {
-          router.push(`/jobs/${jobId}`);
-        }, 2000);
+          router.push("/dashboard/applications");
+        }, 1500);
       }
     } catch (error) {
       setError("An error occurred. Please try again.");

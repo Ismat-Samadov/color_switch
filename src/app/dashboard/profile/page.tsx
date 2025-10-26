@@ -97,17 +97,14 @@ export default function ProfilePage() {
 
       setSuccess(
         existingProfile
-          ? "Profile updated successfully!"
-          : "Profile created successfully!"
+          ? "Profile updated successfully! Redirecting..."
+          : "Profile created successfully! Redirecting..."
       );
-      setExistingProfile(data.profile);
-      setCvFile(null);
-      setRemoveCv(false);
 
-      // Refresh the page to show updated data
+      // Redirect to the user's public profile page after successful save
       setTimeout(() => {
-        router.refresh();
-      }, 1000);
+        router.push(`/profiles/${data.profile.userId}`);
+      }, 1500);
     } catch (err: any) {
       setError(err.message);
     } finally {
