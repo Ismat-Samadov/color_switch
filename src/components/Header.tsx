@@ -22,12 +22,15 @@ export default async function Header() {
               Browse Jobs
             </Link>
 
-            <Link
-              href="/profiles"
-              className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-            >
-              Browse Profiles
-            </Link>
+            {/* Show Browse Profiles only for employers and non-authenticated users */}
+            {(!session?.user || session.user.role === "employer") && (
+              <Link
+                href="/profiles"
+                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+              >
+                Browse Profiles
+              </Link>
+            )}
 
             {session?.user ? (
               <>
