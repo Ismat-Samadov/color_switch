@@ -74,21 +74,21 @@ export default async function Home() {
 
           <div className="text-center">
             <div className="bg-blue-100 dark:bg-blue-900/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-              <FileText className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+              <Users className="w-8 h-8 text-blue-600 dark:text-blue-400" />
             </div>
-            <h3 className="text-xl font-semibold mb-2">Easy Applications</h3>
+            <h3 className="text-xl font-semibold mb-2">Create Profile</h3>
             <p className="text-gray-600 dark:text-gray-400">
-              Apply to jobs quickly with your resume and cover letter
+              Showcase your skills and experience to potential employers
             </p>
           </div>
 
           <div className="text-center">
             <div className="bg-blue-100 dark:bg-blue-900/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Users className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+              <FileText className="w-8 h-8 text-blue-600 dark:text-blue-400" />
             </div>
-            <h3 className="text-xl font-semibold mb-2">For Employers</h3>
+            <h3 className="text-xl font-semibold mb-2">Easy Applications</h3>
             <p className="text-gray-600 dark:text-gray-400">
-              Post jobs and find the perfect candidates for your team
+              Apply to jobs quickly with your resume and cover letter
             </p>
           </div>
         </div>

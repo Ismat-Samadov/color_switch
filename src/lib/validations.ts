@@ -45,8 +45,35 @@ export const applicationSchema = z.object({
   ),
 });
 
+// Profile validation schemas
+export const profileSchema = z.object({
+  title: z.string().min(3, "Title must be at least 3 characters"),
+  bio: z.string().optional(),
+  location: z.string().optional(),
+  phoneNumber: z.string().optional(),
+  linkedinUrl: z.string().url("Invalid LinkedIn URL").optional().or(z.literal("")),
+  githubUrl: z.string().url("Invalid GitHub URL").optional().or(z.literal("")),
+  portfolioUrl: z.string().url("Invalid Portfolio URL").optional().or(z.literal("")),
+  skills: z.string().optional(),
+  experience: z.string().optional(),
+  education: z.string().optional(),
+  isPublic: z.boolean().optional(),
+});
+
+export const profileWithCvSchema = profileSchema.extend({
+  cvFile: z.instanceof(File).refine(
+    (file) => file.size <= 10 * 1024 * 1024,
+    "File size must be less than 10MB"
+  ).refine(
+    (file) => ["application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"].includes(file.type),
+    "Only PDF and Word documents are allowed"
+  ).optional(),
+});
+
 export type SignUpInput = z.infer<typeof signUpSchema>;
 export type SignInInput = z.infer<typeof signInSchema>;
 export type CompanyInput = z.infer<typeof companySchema>;
 export type JobInput = z.infer<typeof jobSchema>;
 export type ApplicationInput = z.infer<typeof applicationSchema>;
+export type ProfileInput = z.infer<typeof profileSchema>;
+export type ProfileWithCvInput = z.infer<typeof profileWithCvSchema>;

@@ -22,6 +22,13 @@ export default async function Header() {
               Browse Jobs
             </Link>
 
+            <Link
+              href="/profiles"
+              className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+            >
+              Browse Profiles
+            </Link>
+
             {session?.user ? (
               <>
                 {session.user.role === "employer" ? (
@@ -32,12 +39,20 @@ export default async function Header() {
                     My Jobs
                   </Link>
                 ) : (
-                  <Link
-                    href="/dashboard/applications"
-                    className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                  >
-                    My Applications
-                  </Link>
+                  <>
+                    <Link
+                      href="/dashboard/applications"
+                      className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                    >
+                      My Applications
+                    </Link>
+                    <Link
+                      href="/dashboard/profile"
+                      className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                    >
+                      My Profile
+                    </Link>
+                  </>
                 )}
                 <span className="text-sm text-gray-600 dark:text-gray-400">
                   {session.user.name}

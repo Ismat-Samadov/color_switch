@@ -56,11 +56,33 @@ export const applications = gotojobSchema.table("applications", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
+// User profiles table
+export const profiles = gotojobSchema.table("profiles", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  userId: uuid("user_id").references(() => users.id, { onDelete: "cascade" }).notNull().unique(),
+  title: varchar("title", { length: 255 }).notNull(), // e.g., "Senior Software Engineer"
+  bio: text("bio"), // Professional summary
+  location: varchar("location", { length: 255 }),
+  phoneNumber: varchar("phone_number", { length: 50 }),
+  linkedinUrl: varchar("linkedin_url", { length: 255 }),
+  githubUrl: varchar("github_url", { length: 255 }),
+  portfolioUrl: varchar("portfolio_url", { length: 255 }),
+  skills: text("skills"), // Comma-separated or JSON
+  experience: text("experience"), // Work experience details
+  education: text("education"), // Education details
+  cvUrl: text("cv_url"), // Optional CV file
+  cvFileName: varchar("cv_file_name", { length: 255 }),
+  isPublic: boolean("is_public").default(true).notNull(), // Whether profile is visible to employers
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
 // Relations
-export const usersRelations = relations(users, ({ many }) => ({
+export const usersRelations = relations(users, ({ one, many }) => ({
   companies: many(companies),
   jobs: many(jobs),
   applications: many(applications),
+  profile: one(profiles),
 }));
 
 export const companiesRelations = relations(companies, ({ one, many }) => ({
@@ -94,6 +116,13 @@ export const applicationsRelations = relations(applications, ({ one }) => ({
   }),
 }));
 
+export const profilesRelations = relations(profiles, ({ one }) => ({
+  user: one(users, {
+    fields: [profiles.userId],
+    references: [users.id],
+  }),
+}));
+
 // Types
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
@@ -106,3 +135,6 @@ export type NewJob = typeof jobs.$inferInsert;
 
 export type Application = typeof applications.$inferSelect;
 export type NewApplication = typeof applications.$inferInsert;
+
+export type Profile = typeof profiles.$inferSelect;
+export type NewProfile = typeof profiles.$inferInsert;
