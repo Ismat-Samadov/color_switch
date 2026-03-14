@@ -124,6 +124,9 @@ export function createInitialState(
     difficulty,
     nextId: 1,
     frameCount: 0,
+    // Physics are frozen until the player taps for the first time.
+    // This gives them unlimited time to read the screen and orient.
+    waitingFirstTap: true,
   };
 
   // First obstacle is placed above ball start, with no changer before it
@@ -137,6 +140,8 @@ export function createInitialState(
 // ─── Jump ─────────────────────────────────────────────────────────────────────
 
 export function jumpBall(state: GameState): void {
+  // First tap unfreezes physics; subsequent taps also apply the jump force.
+  state.waitingFirstTap = false;
   state.ball.vy = PHYSICS.jumpVelocity;
 }
 
@@ -177,6 +182,14 @@ export function updateGame(
   const events: FrameEvents = { died: false, scored: false, colorChanged: false };
   const { ball } = state;
   state.frameCount++;
+
+  // ── Waiting for first tap — only spin obstacles, no physics ──────────────
+  if (state.waitingFirstTap) {
+    ball.pulsePhase += 0.08;
+    for (const obs of state.obstacles) obs.rotation += obs.rotationSpeed;
+    for (const ch of state.colorChangers) ch.pulsePhase += 0.08;
+    return events;
+  }
 
   // ── Physics ──────────────────────────────────────────────────────────────
   ball.vy = Math.min(ball.vy + PHYSICS.gravity, PHYSICS.maxFallSpeed);

@@ -131,7 +131,8 @@ export default function ColorSwitchGame() {
   // ── Input: pause / resume ───────────────────────────────────────────────────
   const pauseGame = useCallback(() => {
     const state = gameStateRef.current;
-    if (state?.status === 'playing') {
+    // Don't allow pausing before the first tap — there's nothing to pause yet.
+    if (state?.status === 'playing' && !state.waitingFirstTap) {
       state.status = 'paused';
       setGameStatus('paused');
       stopMusic();
@@ -151,9 +152,19 @@ export default function ColorSwitchGame() {
   const startGame = useCallback((diff: DifficultyLevel) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+
+    // Use window dimensions as a reliable fallback in case the canvas hasn't
+    // been measured yet by the ResizeObserver (can happen on first load).
+    const w = canvas.width  > 0 ? canvas.width  : window.innerWidth;
+    const h = canvas.height > 0 ? canvas.height : window.innerHeight;
+
+    // Ensure the canvas rendering buffer matches the display size.
+    if (canvas.width === 0)  canvas.width  = w;
+    if (canvas.height === 0) canvas.height = h;
+
     setDifficulty(diff);
     setDisplayScore(0);
-    gameStateRef.current = createInitialState(canvas.width, canvas.height, diff);
+    gameStateRef.current = createInitialState(w, h, diff);
     setGameStatus('playing');
     if (musicEnabled) startMusic();
   }, [musicEnabled, startMusic]);

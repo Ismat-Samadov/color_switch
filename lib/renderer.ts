@@ -254,6 +254,33 @@ export function renderFrame(
 
   // ── Ghosted score watermark ──
   drawScoreLabel(ctx, score, width);
+
+  // ── "TAP TO START" hint while waiting for first input ──
+  if (state.waitingFirstTap) {
+    drawTapHint(ctx, width, height, state.frameCount);
+  }
+}
+
+/** Pulsing "TAP TO START" label drawn on the canvas. */
+function drawTapHint(
+  ctx: CanvasRenderingContext2D,
+  width: number,
+  height: number,
+  frame: number,
+): void {
+  const alpha = 0.55 + Math.sin(frame * 0.07) * 0.45; // 0.1 → 1.0 pulse
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.font = 'bold 18px "Segoe UI", Arial, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.letterSpacing = '0.2em';
+  ctx.fillStyle = '#ffffff';
+  ctx.shadowBlur = 16;
+  ctx.shadowColor = '#ffffff';
+  ctx.fillText('TAP TO START', width / 2, height * 0.88);
+  ctx.shadowBlur = 0;
+  ctx.globalAlpha = 1;
+  ctx.restore();
 }
 
 /** Render an animated idle background (no ball, just rotating shapes). */

@@ -92,6 +92,12 @@ export interface GameState {
   difficulty: DifficultyLevel;
   nextId: number;
   frameCount: number;
+  /**
+   * True until the player taps/clicks for the first time after PLAY.
+   * While true, physics are frozen — the ball hovers and rings spin
+   * so the player can see the mechanic before committing.
+   */
+  waitingFirstTap: boolean;
 }
 
 /** Events emitted by a single update tick, consumed by the game component. */
