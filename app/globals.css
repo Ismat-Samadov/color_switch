@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+/* ── Neon Theme Variables ───────────────────────────────────────────── */
+:root {
+  --bg: #08080F;
+  --color-pink:   #FF2D6B;
+  --color-cyan:   #00E5FF;
+  --color-yellow: #FFE100;
+  --color-green:  #00FF7F;
+}
+
+/* ── Base Reset ─────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: #fff;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#__next, main {
+  height: 100%;
+}
+
+/* ── Prevent text selection during gameplay ─────────────────────────── */
+canvas {
+  user-select: none;
+  -webkit-user-select: none;
+  display: block;
+}
+
+/* ── Custom scrollbar (for menus if any overflow) ───────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 2px; }
+
+/* ── Focus ring for accessibility ───────────────────────────────────── */
+button:focus-visible {
+  outline: 2px solid var(--color-cyan);
+  outline-offset: 3px;
+}

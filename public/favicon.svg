@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Spinning ring with 4 neon color segments -->
+  <!-- Pink segment (top-right) -->
+  <path d="M32 32 L32 10 A22 22 0 0 1 54 32 Z" fill="#FF2D6B" opacity="0.95"/>
+  <!-- Cyan segment (bottom-right) -->
+  <path d="M32 32 L54 32 A22 22 0 0 1 32 54 Z" fill="#00E5FF" opacity="0.95"/>
+  <!-- Yellow segment (bottom-left) -->
+  <path d="M32 32 L32 54 A22 22 0 0 1 10 32 Z" fill="#FFE100" opacity="0.95"/>
+  <!-- Green segment (top-left) -->
+  <path d="M32 32 L10 32 A22 22 0 0 1 32 10 Z" fill="#00FF7F" opacity="0.95"/>
+  <!-- Inner mask circle -->
+  <circle cx="32" cy="32" r="14" fill="#08080F"/>
+  <!-- White center ball -->
+  <circle cx="32" cy="32" r="7" fill="white"/>
+</svg>
